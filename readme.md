@@ -25,7 +25,7 @@ duration.fmt(hour * 30).separator(':') // => '1d:7h:0m:0s'
 duration.fmt(hour * 30).grading([duration.minutes, duration.hour]) // => '0m 30h'
 duration.fmt(1040)
   .grading([
-    { unit: '% seconds' },
+    { unit: '% seconds', milliseconds: 1000 },
     { unit: x => x === 1 ? 'a jiffy' : `${x} jiffies}`, milliseconds: 5 }
   ])
   .separator(' and ') // => '1s and 8 jiffies'
