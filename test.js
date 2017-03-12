@@ -13,6 +13,7 @@ const hour = minute * 60
 describe('human-duration', () => {
   const cases = [
     // Base duration cases:
+    [duration.fmt(0), '0s'],
     [duration.fmt(second * 1.2), '1s'],
     [duration.fmt(second * 90), '1m 30s'],
     [duration.fmt(minute * 70 + second * 13), '1h 10m 13s'],

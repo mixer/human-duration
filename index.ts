@@ -21,6 +21,12 @@ export interface ISegment {
     count: number;
 }
 
+function renderUnit(count: number, formatter: string | ((x: number) => string)): string {
+    return typeof formatter === 'function'
+        ? formatter(count)
+        : formatter.replace(/%/g, String(count));
+}
+
 export class Duration {
 
     private _grading = [day, hour, minute, second];
@@ -50,11 +56,17 @@ export class Duration {
     public segments(max = Infinity) {
         // 1. First pass, sort the parts and give them their own unit durations
         const sorted = this._grading.slice().sort((a, b) => a.milliseconds - b.milliseconds);
+        let duration = this._duration / sorted[0].milliseconds;
+
+        // Special cases: empty string if no segments, 0 on the smallest
+        // segment if the time is less than its unit.
         if (sorted.length === 0) {
             return '';
         }
+        if (this._duration < sorted[0].milliseconds) {
+            return renderUnit(Math.floor(duration), sorted[0].unit);
+        }
 
-        let duration = this._duration / sorted[0].milliseconds;
         let parts = sorted.map((grade, i) => {
             if (i === sorted.length - 1) {
                 return { grade, count: Math.floor(duration) };
@@ -87,9 +99,7 @@ export class Duration {
         return this._grading
             .map(grade => parts.find(p => p.grade === grade))
             .filter(Boolean)
-            .map(part => typeof part.grade.unit === 'function'
-                ? part.grade.unit(part.count)
-                : part.grade.unit.replace(/%/g, String(part.count)))
+            .map(part => renderUnit(part.count, part.grade.unit))
             .join(this._separator);
     }
 
