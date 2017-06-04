@@ -12,7 +12,7 @@ npm install --save human-duration
 
 See the test cases for quick usage examples.
 
-Note: `duration.fmt` takes miliseconds.
+Note: `duration.fmt` takes milliseconds.
 
 ```js
 const duration = require('human-duration')
