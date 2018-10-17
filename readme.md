@@ -1,4 +1,4 @@
-# human-duration [![Build Status](https://travis-ci.org/WatchBeam/human-duration.svg?branch=master)](https://travis-ci.org/WatchBeam/human-duration)
+# human-duration [![Build Status](https://travis-ci.org/mixer/human-duration.svg?branch=master)](https://travis-ci.org/WatchBeam/human-duration)
 
 human-duration formats a duration as a human-readable duration, like `2d 6h`. There are other utilities similar to this, but this one aims to be compact (standing at 600 bytes), entirely configurable, and usable with internationalization.
 
